@@ -1,9 +1,9 @@
 import { HomeController } from "../controllers/HomeController";
 import { ContactController } from "../controllers/ContactController";
 import { AppRouter } from "../utils/AppRouter";
-import { AccountController } from "../controllers/AccountController";
+import { AccountController } from "../features/account/AccountController";
 import passport = require("passport");
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express-serve-static-core";
 
 
 export class HomeRouter extends AppRouter {
@@ -33,7 +33,7 @@ export class HomeRouter extends AppRouter {
     // OAuth authentication routes. (Sign in)
     this.addRoute("get", "/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
     this.addRoute("get", "/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
-      res.redirect(req.session.returnTo || "/");
+      res.redirect(req.session?.returnTo || "/");
     });
 
     /**

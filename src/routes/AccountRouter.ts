@@ -1,6 +1,6 @@
 import * as passportConfig from "../utils/passport";
-import { Request, Response, NextFunction } from "express";
-import { AccountController } from "../controllers/AccountController";
+import { Request, Response, NextFunction } from "express-serve-static-core";
+import { AccountController } from "../features/account/AccountController";
 import { AppRouter } from "../utils/AppRouter";
 import { IAppRouter } from "../interfaces/IAppRouter";
 
@@ -47,6 +47,11 @@ export class AccountRoutes extends AppRouter {
 
   private testRedirect = (req: Request, res: Response, next: NextFunction): void => {
     // After successful login, redirect back to the intended page
+    if (req.session === undefined) {
+      console.log("req.session === undefined");
+      return;
+    }
+
     if (
       !req.user &&
       req.path !== "/login" &&

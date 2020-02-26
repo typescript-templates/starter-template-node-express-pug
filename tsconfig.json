@@ -1,7 +1,6 @@
 {
   "include": [
-    "src/**/*.ts",
-    "src copy/sample.ts"
+    "src/**/*.ts", "@types/fbgraph.d.ts", "@types/express-flash.d.ts"
   ],
   "exclude": [
     "spec",
@@ -23,21 +22,16 @@
       "dom"
     ],
     "jsx": "react",
-    "removeComments": true,
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "strict": false,
-    "noImplicitAny": true,
-    "strictNullChecks": false,
-    "strictFunctionTypes": true,
+    "strict": true,
     "strictPropertyInitialization": false,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
     "esModuleInterop": true,
-    "types": [
-      "src/types/*"
+    "typeRoots": [
+      "@types",
+      "node_modules/@types"
     ]
   }
 }

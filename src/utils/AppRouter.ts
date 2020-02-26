@@ -9,13 +9,14 @@ export class AppRouter implements IAppRouter {
   readonly url: string;
   parentUrl: string;
   Router: IRouter;
-  subRouter?: IAppRouter[];
+  subRouter: IAppRouter[];
 
   constructor(name: string, url?: string) {
     this.ControllerName = name;
     this.url = url || "";
     this.parentUrl = "";
     this.Router = ExpressRouter();
+    this.subRouter = [];
   }
 
   initialize(): void {

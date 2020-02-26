@@ -1,15 +1,15 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express-serve-static-core";
 import { check, validationResult } from "express-validator";
-import "../utils/passport";
-import { AccountModel } from "../models/AccountModel";
-import AccountService from "../services/AccountService";
-import { AccountProfile } from "../models/AccountProfile";
-import { AccountError } from "../utils/AccountError";
-import { ErrorCodes } from "../utils/ErrorCodes";
-import { MailService } from "../services/MailService";
+import "../../utils/passport";
+import { AccountProfile } from "../../models/AccountProfile";
+import { AccountError } from "../../utils/AccountError";
+import { ErrorCodes } from "../../utils/ErrorCodes";
+import { MailService } from "../../services/MailService";
 import passport = require("passport");
 import { IVerifyOptions } from "passport-local";
-import AppConfig from "../config/AppConfig";
+import AppConfig from "../../config/AppConfig";
+import { AccountModel } from "./AccountModel";
+import AccountService from "./AccountService";
 
 export class AccountController {
   /**
@@ -47,7 +47,7 @@ export class AccountController {
       req.logIn(user, (err) => {
         if (err) { return next(err); }
         req.flash("success", { msg: "Success! You are logged in." });
-        res.redirect(req.session.returnTo || "/");
+        res.redirect(req.session?.returnTo || "/");
       });
     })(req, res, next);
   };
@@ -87,7 +87,7 @@ export class AccountController {
     const profile = req.body as AccountProfile;
 
     try {
-      await AccountService.UpdateProfile(reqUser.id, { ...profile });
+      await AccountService.UpdateProfile(reqUser.id!, { ...profile });
 
       req.flash("success", { msg: "Profile information has been updated." });
     }
@@ -120,7 +120,7 @@ export class AccountController {
     const reqUser = req.user as AccountModel;
 
     try {
-      await AccountService.UpdatePassword(reqUser.id, req.body.password);
+      await AccountService.UpdatePassword(reqUser.id!, req.body.password);
 
       req.flash("success", { msg: "Password has been changed." });
       res.redirect("/account");
@@ -137,7 +137,7 @@ export class AccountController {
     const user = req.user as AccountModel;
 
     try {
-      await AccountService.DeleteAccount(user.id);
+      await AccountService.DeleteAccount(user.id!);
 
       req.logout();
       req.flash("info", { msg: "Your account has been deleted." });
@@ -156,7 +156,7 @@ export class AccountController {
     const reqUser = req.user as AccountModel;
 
     try {
-      await AccountService.UnlinkOauth(reqUser.id, provider);
+      await AccountService.UnlinkOauth(reqUser.id!, provider);
 
       req.flash("info", { msg: `${provider} account has been unlinked.` });
       res.redirect("/account");
@@ -256,7 +256,7 @@ export class AccountController {
     }
 
     try {
-      await AccountService.PasswordResetRequest(req.headers.host, req.body.email);
+      await AccountService.PasswordResetRequest(req.headers.host!, req.body.email);
 
       req.flash("info", { msg: `An e-mail has been sent to ${req.body.email} with further instructions.` });
       res.redirect("/account/forgot");

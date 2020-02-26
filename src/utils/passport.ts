@@ -1,15 +1,15 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 import passportFacebook from "passport-facebook";
-import { Request, Response, NextFunction } from "express";
-import AccountService from "../services/AccountService";
-import { AccountModel } from "../models/AccountModel";
+import { Request, Response, NextFunction } from "express-serve-static-core";
 import { AuthProvider } from "../models/AuthProvider";
 import { AccountProfile } from "../models/AccountProfile";
 import { LinkedAccount } from "../models/LinkedAccount";
 import { EnumTools } from "./EnumTools";
-import { UserEntity } from "../entities/AccountEntity";
 import AppConfig from "../config/AppConfig";
+import { UserEntity } from "../features/account/AccountEntity";
+import { AccountModel } from "../features/account/AccountModel";
+import AccountService from "../features/account/AccountService";
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
@@ -58,7 +58,7 @@ passport.use(new LocalStrategy({ usernameField: "email" }, async (email: string,
 const getUserProfile = (profile: passportFacebook.Profile): AccountProfile => {
   return {
     gender: profile.gender,
-    name: `${profile.name.givenName} ${profile.name.familyName}`,
+    name: `${profile?.name?.givenName} ${profile?.name?.familyName}`,
     picture: `https://graph.facebook.com/${profile.id}/picture?type=large`,
     website: profile.profileUrl
   };
@@ -123,7 +123,7 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction): v
   const provider = req.path.split("/").slice(-1)[0];
 
   const user = req.user as AccountModel;
-  const toki = user.linkedAccounts.find(x => x.authProvider === provider)?.token;
+  const toki = user.linkedAccounts?.find(x => x.authProvider === provider)?.token;
   if (toki) {
     next();
   } else {

@@ -8,7 +8,7 @@ export class EnumTools {
   static getNames(e: any): string[] {
     return Object.keys(e).filter(key => isNaN(+key));
   }
-  static getName<T extends EnumValueType>(e: any, value: T): string | null {
+  static getName<T extends EnumValueType>(e: any, value: T): string | undefined {
     const all = this.getNamesAndValues(e).filter(([, enumValue]) => enumValue === value);
     return all.length == 1 ? all[0][0] : undefined;
   }

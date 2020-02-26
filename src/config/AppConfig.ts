@@ -50,10 +50,10 @@ class AppConfig {
     (this[key] as any) = value;
   }
 
-  write<K extends keyof AppConfig>(arg: AppConfig, key: K, value: AppConfig[K]): void {
-    arg = this;
-    arg[key] = value;
-  }
+  // write<K extends keyof AppConfig>(arg: AppConfig, key: K, value: AppConfig[K]): void {
+  //   arg = this;
+  //   arg[key] = value;
+  // }
 
 }
 
