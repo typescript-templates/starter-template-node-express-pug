@@ -30,14 +30,15 @@ passport.deserializeUser((id, done) => {
  */
 passport.use(new LocalStrategy({ usernameField: "email" }, async (email: string, password: string, done: Function) => {
 
-  const user = await AccountService.Login(email, password);
-
-  if (user) {
+  try {
+    const user = await AccountService.Login(email, password);
     return done(undefined, user);
-  } else {
+
+  } catch (error) {
     return done(undefined, false, { message: "Invalid email or password." });
 
   }
+
 }));
 
 /**

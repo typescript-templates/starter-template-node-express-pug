@@ -1,8 +1,8 @@
 import * as passportConfig from "../utils/passport";
 import { Request, Response, NextFunction } from "express-serve-static-core";
 import { AccountController } from "../features/account/AccountController";
-import { AppRouter } from "../utils/AppRouter";
-import { IAppRouter } from "../interfaces/IAppRouter";
+import { AppRouter } from "../features/NodeServer/AppRouter";
+import { IAppRouter } from "../features/NodeServer/IAppRouter";
 
 export class AccountRoutes extends AppRouter {
 

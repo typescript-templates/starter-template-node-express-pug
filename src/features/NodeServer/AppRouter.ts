@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IAppRouter } from "../interfaces/IAppRouter";
+import { IAppRouter } from "./IAppRouter";
 import { IRouter, RequestHandler, Router as ExpressRouter } from "express";
 import { RouterError } from "./RouterError";
 import { HttpVerbs } from "./HttpVerbs";

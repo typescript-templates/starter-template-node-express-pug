@@ -1,6 +1,6 @@
 import { HomeController } from "../controllers/HomeController";
 import { ContactController } from "../controllers/ContactController";
-import { AppRouter } from "../utils/AppRouter";
+import { AppRouter } from "../features/NodeServer/AppRouter";
 import { AccountController } from "../features/account/AccountController";
 import passport = require("passport");
 import { Request, Response, NextFunction } from "express-serve-static-core";

@@ -1,5 +1,5 @@
-import { CustomError } from "./CustomError";
-import { ErrorCodes } from "./ErrorCodes";
+import { CustomError } from "../../utils/CustomError";
+import { ErrorCodes } from "../../utils/ErrorCodes";
 
 export class RouterError extends CustomError {
   private constructor(message: string, code: ErrorCodes) {
