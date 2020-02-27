@@ -5,6 +5,7 @@
     "access": "public"
   },
   "scripts": {
+    "rimraf":"rimraf node_modules",
     "postpublish": "git tag -a v%npm_package_version% -m \"Release v%npm_package_version%\" && git push origin --tags",
     "commit-release": "git commit -a -m \"Release v%npm_package_version%\" && git push && git tag -a v%npm_package_version% -m \"Release v%npm_package_version%\" && git push origin --tags",
     "build-tsc": "tsc",
@@ -125,6 +126,6 @@
   },
   "license": "GNU General Public License v3.0",
   "repository": {
-    "url": "https://github.com/typescript-templates/starter-template"
+    "url": "https://github.com/typescript-templates/node-express-pug"
   }
 }
