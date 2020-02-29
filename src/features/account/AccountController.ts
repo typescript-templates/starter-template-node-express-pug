@@ -15,7 +15,7 @@ export class AccountController {
   /**
    * Login page.
    */
-  static getLogin = (req: Request, res: Response): void => {
+   getLogin = (req: Request, res: Response): void => {
     if (req.user) {
       return res.redirect("/");
     }
@@ -27,7 +27,7 @@ export class AccountController {
   /**
    * Sign in using email and password.
    */
-  static postLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Email is not valid").isEmail().run(req);
     await check("password", "Password cannot be blank").isLength({ min: 1 }).run(req);
 
@@ -55,7 +55,7 @@ export class AccountController {
   /**
    * Log out.
    */
-  static logout = (req: Request, res: Response): void => {
+   logout = (req: Request, res: Response): void => {
     req.logout();
     res.redirect("/");
   };
@@ -63,7 +63,7 @@ export class AccountController {
   /**
    * Profile page.
    */
-  static getAccount = (req: Request, res: Response): void => {
+   getAccount = (req: Request, res: Response): void => {
     res.render("account/profile", {
       title: "Account Management"
     });
@@ -72,7 +72,7 @@ export class AccountController {
   /**
   * Update profile information.
   */
-  static postUpdateProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postUpdateProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
 
@@ -106,7 +106,7 @@ export class AccountController {
   /**
    * Update current password.
    */
-  static postUpdatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postUpdatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
     await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
 
@@ -133,7 +133,7 @@ export class AccountController {
   /**
    * Delete user account.
    */
-  static postDeleteAccount = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postDeleteAccount = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const user = req.user as AccountModel;
 
     try {
@@ -151,7 +151,7 @@ export class AccountController {
   /**
    * Unlink OAuth provider.
    */
-  static getOauthUnlink = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   getOauthUnlink = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const provider = req.params.provider;
     const reqUser = req.user as AccountModel;
 
@@ -170,7 +170,7 @@ export class AccountController {
   /**
    * Reset Password page.
    */
-  static getReset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   getReset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     if (req.isAuthenticated()) {
       return res.redirect("/");
     }
@@ -197,7 +197,7 @@ export class AccountController {
   */
   // TODO: Async
 
-  static postReset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postReset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("password", "Password must be at least 4 characters long.").isLength({ min: 4 }).run(req);
     await check("confirm", "Passwords must match.").equals(req.body.password).run(req);
 
@@ -231,7 +231,7 @@ export class AccountController {
   /**
    * Forgot Password page.
    */
-  static getForgot = (req: Request, res: Response): void => {
+   getForgot = (req: Request, res: Response): void => {
     if (req.isAuthenticated()) {
       res.redirect("/");
     }
@@ -244,7 +244,7 @@ export class AccountController {
    * Create a random token, then the send user an email with a reset link.
    */
   // TODO: async
-  static postForgot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postForgot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
 
@@ -275,7 +275,7 @@ export class AccountController {
   /**
    * Signup page.
    */
-  static getSignup = (req: Request, res: Response): void => {
+   getSignup = (req: Request, res: Response): void => {
     if (req.user) {
       res.redirect("/");
     } else {
@@ -288,7 +288,7 @@ export class AccountController {
   /**
    * Create a new local account.
    */
-  static postSignup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   postSignup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Email is not valid").isEmail().run(req);
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
     await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);

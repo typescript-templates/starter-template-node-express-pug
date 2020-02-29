@@ -1,6 +1,6 @@
 import * as passportConfig from "../utils/passport";
 import { Request, Response, NextFunction } from "express-serve-static-core";
-import { AccountController } from "../features/account/AccountController";
+import { AccountController } from "../features/account/accountController";
 import { AppRouter } from "@typescript-templates/node-server";
 import { IAppRouter } from "@typescript-templates/node-server";
 
@@ -14,6 +14,7 @@ export class AccountRoutes extends AppRouter {
   initialize(): void {
     console.log(`Initializing routes (${this.url})`);
 
+    const accountController = new AccountController();
     // Each router musst use its own security context.
     // To not affect sub routes, add them first
     this.initializeSubRouter();
@@ -23,25 +24,25 @@ export class AccountRoutes extends AppRouter {
     /**
      * Public access
      */
-    this.addRoute("get", "/signup", AccountController.getSignup);
-    this.addRoute("post", "/signup", AccountController.postSignup);
+    this.addRoute("get", "/signup", accountController.getSignup);
+    this.addRoute("post", "/signup", accountController.postSignup);
 
-    this.addRoute("get", "/forgot", AccountController.getForgot);
-    this.addRoute("post", "/forgot", AccountController.postForgot);
-    this.addRoute("get", "/reset/:token", AccountController.getReset);
-    this.addRoute("post", "/reset/:token", AccountController.postReset);
+    this.addRoute("get", "/forgot", accountController.getForgot);
+    this.addRoute("post", "/forgot", accountController.postForgot);
+    this.addRoute("get", "/reset/:token", accountController.getReset);
+    this.addRoute("post", "/reset/:token", accountController.postReset);
 
     /**
      * Restricted access
      */
     this.use(passportConfig.isAuthenticated);
 
-    this.addRoute("get", "/", AccountController.getAccount);
-    this.addRoute("get", "/unlink/:provider", AccountController.getOauthUnlink);
+    this.addRoute("get", "/", accountController.getAccount);
+    this.addRoute("get", "/unlink/:provider", accountController.getOauthUnlink);
 
-    this.addRoute("post", "/profile", AccountController.postUpdateProfile);
-    this.addRoute("post", "/password", AccountController.postUpdatePassword);
-    this.addRoute("post", "/delete", AccountController.postDeleteAccount);
+    this.addRoute("post", "/profile", accountController.postUpdateProfile);
+    this.addRoute("post", "/password", accountController.postUpdatePassword);
+    this.addRoute("post", "/delete", accountController.postDeleteAccount);
 
   }
 
