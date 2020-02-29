@@ -7,7 +7,7 @@ export class ContactController {
   /**
    * Contact form page.
    */
-  static getContact = (req: Request, res: Response): void => {
+getContact = (req: Request, res: Response): void => {
     res.render("contact", {
       title: "Contact"
     });
@@ -16,7 +16,7 @@ export class ContactController {
   /**
    * Send a contact form via Nodemailer.
    */
-  static postContact = async (req: Request, res: Response): Promise<void> => {
+postContact = async (req: Request, res: Response): Promise<void> => {
     await check("name", "Name cannot be blank").not().isEmpty().run(req);
     await check("email", "Email is not valid").isEmail().run(req);
     await check("message", "Message cannot be blank").not().isEmpty().run(req);

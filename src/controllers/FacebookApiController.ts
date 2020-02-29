@@ -6,7 +6,7 @@ export class FacebookApiController {
   /**
    * List of API examples.
    */
-  static getApi = (req: Request, res: Response): void => {
+  getApi = (req: Request, res: Response): void => {
     res.render("api/index", {
       title: "API Examples"
     });
@@ -15,7 +15,7 @@ export class FacebookApiController {
   /**
    * Facebook API example.
    */
-  static getFacebook = (req: Request, res: Response, next: NextFunction): void => {
+  getFacebook = (req: Request, res: Response, next: NextFunction): void => {
     const user = req.user as AccountModel;
     const account = user.linkedAccounts?.find(account => account.authProvider === "facebook");
     graph.setAccessToken(account?.token);

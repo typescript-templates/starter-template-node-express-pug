@@ -1,6 +1,8 @@
 {
   "include": [
-    "src/**/*.ts", "@types/fbgraph.d.ts", "@types/express-flash.d.ts"
+    "src/**/*.ts",
+    "types/fbgraph.d.ts",
+    "types/express-flash.d.ts"
   ],
   "exclude": [
     "spec",
@@ -30,7 +32,7 @@
     "strictPropertyInitialization": false,
     "esModuleInterop": true,
     "typeRoots": [
-      "@types",
+      "types",
       "node_modules/@types"
     ]
   }
