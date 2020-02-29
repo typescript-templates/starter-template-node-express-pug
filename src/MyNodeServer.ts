@@ -3,9 +3,10 @@ import express, { Express } from "express";
 import session from "express-session";
 import path from "path";
 import passport from "passport";
-import { MongoDb } from "dotup-ts-mongoose";
+import { MongoDb } from "@dotup/dotup-ts-mongoose";
 import mongo, { MongoUrlOptions, MongooseConnectionOptions, NativeMongoOptions, MongoStore, NativeMongoPromiseOptions } from "connect-mongo";
-import { NodeServer } from "./features/NodeServer/NodeServer";
+import { NodeServer } from "@typescript-templates/node-server";
+import flash from "express-flash";
 
 
 /**
@@ -19,21 +20,23 @@ export class MyNodeServer extends NodeServer {
   private db: MongoDb;
 
   async initialize(app: Express): Promise<void> {
-
-    super.initialize(
-      app,
-
-      () => this.CreateMongoStore({
-        url: AppConfig.MONGODB_URI,
-        autoReconnect: true
-      }),
-      AppConfig.SESSION_SECRET
-    );
+    const sessionStore = this.CreateMongoStore({
+      url: AppConfig.MONGODB_URI,
+      autoReconnect: true
+    });
 
     this.db = new MongoDb();
     await this.db.Connect(AppConfig.MONGODB_URI, AppConfig.MONGODB_DB_NAME, {
       useFindAndModify: false
     });
+
+    super.initialize(
+      app,
+      () => sessionStore,
+      AppConfig.SESSION_SECRET
+    );
+
+    app.use(flash());
 
     // Express configuration
     app.set("views", path.join(__dirname, "../views"));

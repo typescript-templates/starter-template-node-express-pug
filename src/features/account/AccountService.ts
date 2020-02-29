@@ -1,7 +1,7 @@
 import crypto from "crypto";
 // import "../../util/passport";
-import { AsyncCallback, PropertyNamesOnly, ObjectTools, ArrayTools } from "dotup-ts-types";
-import bcrypt from "bcrypt-nodejs";
+import { AsyncCallback, PropertyNamesOnly, ObjectTools, ArrayTools } from "@dotup/dotup-ts-types";
+import bcrypt from "bcrypt";
 import { AccountError } from "../../utils/AccountError";
 import { AccountModel } from "./AccountModel";
 import { UserEntity } from "./AccountEntity";

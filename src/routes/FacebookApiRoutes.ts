@@ -1,6 +1,6 @@
 import * as passportConfig from "../utils/passport";
 import { FacebookApiController } from "../controllers/FaceBookApiController";
-import { AppRouter } from "../features/NodeServer/AppRouter";
+import { AppRouter } from "@typescript-templates/node-server";
 
 
 export class FacebookApiRoutes extends AppRouter {

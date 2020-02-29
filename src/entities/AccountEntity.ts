@@ -1,4 +1,4 @@
-// import { SchemaFactory } from "dotup-ts-mongoose";
+// import { SchemaFactory } from "@dotup/dotup-ts-mongoose";
 // import { AccountModel } from "../models/AccountModel";
 // import { AccountProfileSchema, LinkedAccountSchema } from "./SubSchemas";
 

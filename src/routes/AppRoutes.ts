@@ -1,6 +1,6 @@
 import { AccountRoutes } from "./AccountRouter";
 import { FacebookApiRoutes } from "./FacebookApiRoutes";
-import { IAppRouter } from "../features/NodeServer/IAppRouter";
+import { IAppRouter } from "@typescript-templates/node-server";
 import { HomeRouter } from "./HomeRoutes";
 
 export const AppRoutes: IAppRouter[] = [
