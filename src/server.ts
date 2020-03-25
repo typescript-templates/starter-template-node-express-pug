@@ -3,6 +3,9 @@ import express from "express";
 import AppConfig from "./config/AppConfig";
 import { MyNodeServer } from "./MyNodeServer";
 import { AppRoutes } from "./routes/AppRoutes";
+import { NodeServer, IAppRouter, StartServer } from "@typescript-templates/node-server";
+
+type Constructor<T extends {} = {}> = new (...args: any[]) => T;
 
 process.on("unhandledRejection", (error: any) => {
   // Will print "unhandledRejection err is not defined"
@@ -10,11 +13,10 @@ process.on("unhandledRejection", (error: any) => {
 });
 
 // Create app and start
-async function StartServer(): Promise<void> {
-  const server = new MyNodeServer();
-  await server.initialize(express())
-  server.assignRoutes(AppRoutes);
-  server.start(AppConfig.PORT);
-}
-
-StartServer();
+StartServer(MyNodeServer, AppRoutes, AppConfig.PORT)
+  .then(_ => console.log("Server started"))
+  .catch(e => {
+    console.log("Server start failed.");
+    console.log(e);
+  })
+  ;

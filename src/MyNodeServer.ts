@@ -1,13 +1,17 @@
 import AppConfig from "./config/AppConfig";
-import express, { Express } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import session from "express-session";
 import path from "path";
 import passport from "passport";
 import { MongoDb } from "@dotup/dotup-ts-mongoose";
+import { HttpStatusCode } from "@dotup/dotup-ts-types";
 import mongo, { MongoUrlOptions, MongooseConnectionOptions, NativeMongoOptions, MongoStore, NativeMongoPromiseOptions } from "connect-mongo";
-import { NodeServer } from "@typescript-templates/node-server";
+import { NodeServer, SessionStoreFactory, DefaultErrorHandler } from "@typescript-templates/node-server";
 import flash from "express-flash";
 
+const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction): void => {
+  res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Internal server error");
+};
 
 /**
  * TODO:
@@ -18,8 +22,9 @@ import flash from "express-flash";
 
 export class MyNodeServer extends NodeServer {
   private db: MongoDb;
+  // async initialize(server: ServerMethods, sessionStoreFactory: SessionStoreFactory, sessionSecret: string): Promise<void> {
 
-  async initialize(app: Express): Promise<void> {
+  async initialize(app: Express, sessionStoreFactory?: SessionStoreFactory, sessionSecret?: string): Promise<void> {
     const sessionStore = this.CreateMongoStore({
       url: AppConfig.MONGODB_URI,
       autoReconnect: true
@@ -50,6 +55,7 @@ export class MyNodeServer extends NodeServer {
       express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
     );
 
+    app.use(errorHandler);
   }
 
   CreateMongoStore(options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore {

@@ -18,19 +18,15 @@
     "baseUrl": ".",
     "target": "ES6",
     "module": "CommonJS",
-    "lib": [
-      "es6",
-      "es2017",
-      "dom"
-    ],
-    "jsx": "react",
+    "moduleResolution": "Node",
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "esModuleInterop": true,
     "typeRoots": [
       "types",
       "node_modules/@types"

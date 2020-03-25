@@ -10,6 +10,7 @@ import { getHash } from "../../utils/helper";
 import { LinkedAccount } from "../../models/LinkedAccount";
 import { AuthProvider } from "../../models/AuthProvider";
 
+
 /**
  * TODO: Validation
  * 
@@ -51,9 +52,7 @@ class AccountService {
     return result;
   }
 
-  // @ts-ignore
-  async GetUser<K extends PropertyNamesOnly<AccountModel>>(key: K, value: AccountModel[K]): Promise<AccountModel> {
-    // @ts-ignore
+  async GetUser<K extends keyof AccountModel>(key: K, value: AccountModel[K]): Promise<AccountModel> {
     const result = await UserEntity.findOne({ [key]: value }).lean();
     return result;
   }
