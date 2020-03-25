@@ -1,5 +1,5 @@
 import * as passportConfig from "../utils/passport";
-import { Request, Response, NextFunction } from "express-serve-static-core";
+import { Request, Response, NextFunction } from "express";
 import { AccountController } from "../features/account/accountController";
 import { AppRouter } from "@typescript-templates/node-server";
 import { IAppRouter } from "@typescript-templates/node-server";

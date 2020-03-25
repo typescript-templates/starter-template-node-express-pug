@@ -47,12 +47,12 @@ class AccountService {
 
   }
 
-  async GetAllUsers(): Promise<AccountModel[]> {
-    const result = await UserEntity.estimatedDocumentCount().find().lean();
-    return result;
-  }
+  // async GetAllUsers(): Promise<AccountModel[]> {
+  //   const result = await UserEntity.estimatedDocumentCount().find().lean();
+  //   return result;
+  // }
 
-  async GetUser<K extends keyof AccountModel>(key: K, value: AccountModel[K]): Promise<AccountModel> {
+  async GetUser<K extends keyof AccountModel>(key: K, value: AccountModel[K]): Promise<AccountModel | null> {
     const result = await UserEntity.findOne({ [key]: value }).lean();
     return result;
   }

@@ -1,6 +1,6 @@
 import { HomeController } from "../controllers/HomeController";
 import { AppRouter } from "@typescript-templates/node-server";
-import { Request, Response, NextFunction } from "express-serve-static-core";
+import { Request, Response, NextFunction } from "express";
 
 
 export class HomeRouter extends AppRouter {

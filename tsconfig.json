@@ -19,7 +19,7 @@
     "target": "ES6",
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "declaration": true,
+    "declaration": false,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",

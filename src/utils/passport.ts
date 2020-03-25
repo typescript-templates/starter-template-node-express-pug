@@ -1,7 +1,7 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 import passportFacebook from "passport-facebook";
-import { Request, Response, NextFunction } from "express-serve-static-core";
+import { Request, Response, NextFunction } from "express";
 import { AuthProvider } from "../models/AuthProvider";
 import { AccountProfile } from "../models/AccountProfile";
 import { LinkedAccount } from "../models/LinkedAccount";
